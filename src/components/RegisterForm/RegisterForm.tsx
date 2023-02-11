@@ -3,6 +3,9 @@ import { Typography } from '@mui/material';
 import { TextField } from '@mui/material';
 import { Button } from '@mui/material';
 import { useForm } from "react-hook-form";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../helpers/firebaseConfig";
+
 
 
 // 1. Elementem obwijającym wszystkie inne będzie zwykły htmlowy <form>, w atrybucie style ustaw mu display na flex i flexDirection na column.
@@ -16,7 +19,7 @@ import { useForm } from "react-hook-form";
 //HOOK useForm
 //1. Import useForm (u góry)
 //4. Stworzenie interfasu do formularza. W tym interfejsie wypiszemy wszystkie wartosci pobierane z formularza
-interface RegisterFormValues {
+export interface RegisterFormValues {
     email:string;
     password: string;
     password2:string;
@@ -28,7 +31,21 @@ const RegisterForm = () => {
     //5. Wyżej - przypisanie interfejsu do wywołania useForm i funkcji do onSubmit (patrz góra/dół)
 //3. Stworzenie funckji onSubmit
 //Pod parametr data będą wpadały wszystkie dane z formularza w formie obiektu
-const registerUser = (data: RegisterFormValues) => {console.log(data)};
+const registerUser = (data: RegisterFormValues) =>  {
+    // if (data.password === data.password2) return;
+    if (data.password === data.password2) {
+      createUserWithEmailAndPassword(auth, data.email, data.password)
+        .then(() => {
+          console.log("successfully created a user");
+        })
+        .catch((err) => console.error(err.message));
+    } else {
+      console.log("Password differ from each other");
+    }
+
+    console.log(data);
+    // Sign up news users
+  };
   return (
     //6. Wywołanie handleSubmit i przypisanie funkcji registerUser
     <form style={{display: "flex", flexDirection: "column"}} onSubmit={handleSubmit(registerUser)}>

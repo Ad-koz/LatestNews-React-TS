@@ -9,11 +9,20 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import MenuItem from "@mui/material/MenuItem";
+import AdbIcon from "@mui/icons-material/Adb";
+import { Link } from "react-router-dom";
+import {useContext} from 'react'
+import { authContext } from "../../helpers/authContext";
+import Button from '@mui/material/Button';
 
 
 const pages = ["Home", "Search"];
 
 function ResponsiveAppBar() {
+
+  const loggedIn = React.useContext(authContext)
+  console.log()
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -62,11 +71,34 @@ function ResponsiveAppBar() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+             
+             {pages.map((page, i) => {
+                // index 0: Home
+                // index 1: Search
+                if (i === 0) {
+                  return (
+                    <Link
+                      to="/"
+                      style={{ textDecoration: "none", color: "black" }}
+                    >
+                      <MenuItem key={page} onClick={handleCloseNavMenu}>
+                        <Typography textAlign="center">{page}</Typography>
+                      </MenuItem>
+                    </Link>
+                  );
+                } else {
+                  return (
+                    <Link
+                      to="/search"
+                      style={{ textDecoration: "none", color: "black" }}
+                    >
+                      <MenuItem key={page} onClick={handleCloseNavMenu}>
+                        <Typography textAlign="center">{page}</Typography>
+                      </MenuItem>
+                    </Link>
+                  );
+                }
+              })}
             </Menu>
           </Box>
           <Typography
@@ -85,12 +117,23 @@ function ResponsiveAppBar() {
               textDecoration: "none",
             }}
           >
-            SDA News
+             SDA News
           </Typography>
           <Box sx={{ flexGrow: 0 }}>
-            <IconButton sx={{ p: 0 }}>
-              <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-            </IconButton>
+            {loggedIn ? (
+              <Link to="/user" style={{ textDecoration: "none" }}>
+                <IconButton sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                </IconButton>
+              </Link>
+            ) : (
+              <Link
+                to="/login"
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                <Button variant="contained">Log in</Button>
+              </Link>
+            )}
           </Box>
         </Toolbar>
       </Container>
