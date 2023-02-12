@@ -11,6 +11,8 @@ import {onAuthStateChanged} from "firebase/auth"
 import {auth} from './helpers/firebaseConfig'
 import {authContext} from './helpers/authContext'
 import UserPage from './components/UserPage/UserPage'
+import ProfilePhotoForm from './components/ProfilePhotoForm/ProfilePhotoForm';
+import SearchPage from './components/SearchPage/SearchPage';
 
 function App() {
 //Context API
@@ -35,6 +37,7 @@ function App() {
     
     <BrowserRouter>
     <authContext.Provider value={loggedIn}>
+      {/* <ProfilePhotoForm></ProfilePhotoForm> */}
       {/* STATIC */}
       <Navbar />
       <Routes>
@@ -44,6 +47,7 @@ function App() {
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/customer" element={<CustomerForm />} />
         <Route path="/user" element={<UserPage />} />
+        <Route path="/search" element={<SearchPage />} />
       </Routes>
       {/* STATIC */}
       </authContext.Provider>

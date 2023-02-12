@@ -14,6 +14,10 @@ import { Link } from "react-router-dom";
 import {useContext} from 'react'
 import { authContext } from "../../helpers/authContext";
 import Button from '@mui/material/Button';
+import {useState, useEffect} from 'react'
+import { auth } from "../../helpers/firebaseConfig";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
+
 
 
 const pages = ["Home", "Search"];
@@ -26,7 +30,22 @@ function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
+  const [profilePhoto, setProfilePhoto] = useState('')
 
+  useEffect (() => {
+    if (loggedIn  && auth.currentUser) {
+      const storage = getStorage();
+      getDownloadURL(ref(storage, `/users/${auth.currentUser.uid}/profile`))
+      .then((url) => {
+        setProfilePhoto(url)
+      })
+      .catch(() => {
+        setProfilePhoto('')
+      })
+
+    }
+
+  }, [{loggedIn}])
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -123,7 +142,7 @@ function ResponsiveAppBar() {
             {loggedIn ? (
               <Link to="/user" style={{ textDecoration: "none" }}>
                 <IconButton sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <Avatar alt="Remy Sharp" src={profilePhoto} />
                 </IconButton>
               </Link>
             ) : (
@@ -141,3 +160,10 @@ function ResponsiveAppBar() {
   );
 }
 export default ResponsiveAppBar;
+// 1. Stwórz stan profilePhoto, wartość początkowa: ''.
+// 2. Zmień src avatara (u mnie linia 115) na stan profilePhoto
+// 3. Wywołaj useEffect, przypnij się na zmienną loggedIn
+// 4. W środku UE stwórz ifa w którym sprawdzisz czy loggedIn jest równe true i czy auth.currentUser istnieje
+// WSZYSTKO PONIŻEJ W IFIE
+// 5. Wywołaj funkcję getDownloadURL z dokładnie takim samym refem jak w poprzednim zadaniu, otrzymany w thenie url wrzuć do stanu profilePhoto. Dopisz do tego wywołania catcha, w środku catcha ustawiaj stan profilePhoto na pustego stringa
+

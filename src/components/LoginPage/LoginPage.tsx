@@ -34,7 +34,7 @@ const LoginPage = () => {
 
       <TextField placeholder="password" sx={inputStyles} {...register('password', {required: true})} />
       <Button
-        variant="contained"
+        variant="contained" type="submit"
         sx={{ display: "block", mb: "1rem", mx: "auto" }}
       >
         LOG IN

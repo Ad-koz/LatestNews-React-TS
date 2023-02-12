@@ -45,10 +45,10 @@ const registerUser = (data: RegisterFormValues) =>  {
 
     console.log(data);
     // Sign up news users
-  };
+  }
   return (
     //6. Wywołanie handleSubmit i przypisanie funkcji registerUser
-    <form style={{display: "flex", flexDirection: "column"}} onSubmit={handleSubmit(registerUser)}>
+    <form action="" style={{display: "flex", flexDirection: "column"}} onSubmit={handleSubmit(registerUser)}>
         <Typography align= "center" variant="h2" sx={{fontSize: "1.5rem"}}>
             Register new account
         </Typography>
