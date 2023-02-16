@@ -30,12 +30,12 @@ const LoginPage = () => {
     <form style={{ display: "flex", flexDirection: "column" }} onSubmit = {handleSubmit(logUserIn)}>
       <TextField placeholder="email" sx={inputStyles} {...register('email', {required: true})} /> 
 
-    {/* drugi argument w register jest opcjonalny */}
+
 
       <TextField placeholder="password" sx={inputStyles} {...register('password', {required: true})} />
       <Button
         variant="contained" type="submit"
-        sx={{ display: "block", mb: "1rem", mx: "auto" }}
+        sx={{ display: "block", mb: "1rem", mx: "auto", fontSize: '1rem' }}
       >
         LOG IN
       </Button>

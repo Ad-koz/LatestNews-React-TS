@@ -15,19 +15,13 @@ import ProfilePhotoForm from './components/ProfilePhotoForm/ProfilePhotoForm';
 import SearchPage from './components/SearchPage/SearchPage';
 
 function App() {
-//Context API
-//useContext (hook) jest częścią narzędzia Context API
-//Oprócz useContext mamy do dyspozycji funckje createContext i komponent ContextProvider
-//STEUP CONTEXT API
-//1. Stworzenie contextu poprzez wywoałnie funckji createContext w osobnym pliku.
-//2. Obwinięcie danej części aplikacji, lub całej aplikacji providerem.
-//3. Przekazanie danych do providera.
+
 
   const [loggedIn, setLoggedIn] = useState(false);
   onAuthStateChanged(auth, (user) => {
-    if (user) { //po zalogowaniu obiekt user istnieje
+    if (user) { 
       setLoggedIn (true);
-    } else { //po wylogowaniu działa else, nie ma tego obiektu user
+    } else { 
       setLoggedIn(false)
     }
   });
@@ -37,11 +31,8 @@ function App() {
     
     <BrowserRouter>
     <authContext.Provider value={loggedIn}>
-      {/* <ProfilePhotoForm></ProfilePhotoForm> */}
-      {/* STATIC */}
       <Navbar />
       <Routes>
-        {/* DYNAMIC */}
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterForm />} />
@@ -49,7 +40,6 @@ function App() {
         <Route path="/user" element={<UserPage />} />
         <Route path="/search" element={<SearchPage />} />
       </Routes>
-      {/* STATIC */}
       </authContext.Provider>
     </BrowserRouter>
   </div>

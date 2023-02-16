@@ -10,7 +10,7 @@ const SearchPage = () => {
     const [keyword, setKeyword] = useState("");
     const [articles, setArticles] = useState([]);
 
-    //USEEFFECT
+
 useEffect(() => {
     if (keyword !== "") {
         axios.get(`https://newsapi.org/v2/everything?q=${keyword}&from=2023-02-01&language=en&sortBy=popularity&apiKey=${API_KEY}`)
@@ -25,7 +25,7 @@ useEffect(() => {
   return (
     <>
     <SearchForm setKeyword = {setKeyword}/>
-    {/* LIST */}
+  
     <List sx={{ width: "100%", alignContent: "center"}}>
     {articles.length !== 0 &&
     articles.map((el, i) => {

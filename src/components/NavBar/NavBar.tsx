@@ -9,7 +9,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
 import {useContext} from 'react'
 import { authContext } from "../../helpers/authContext";
@@ -17,6 +16,7 @@ import Button from '@mui/material/Button';
 import {useState, useEffect} from 'react'
 import { auth } from "../../helpers/firebaseConfig";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import NewspaperOutlinedIcon from '@mui/icons-material/NewspaperOutlined';
 
 
 
@@ -58,8 +58,8 @@ function ResponsiveAppBar() {
 
 
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
+    <AppBar position="static" >
+      <Container maxWidth="xl" sx={{background: "#C40F06"}}>
         <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -120,8 +120,9 @@ function ResponsiveAppBar() {
               })}
             </Menu>
           </Box>
+          <NewspaperOutlinedIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
-            variant="h5"
+            variant="h6"
             noWrap
             component="a"
             href=""
@@ -131,12 +132,12 @@ function ResponsiveAppBar() {
               flexGrow: 1,
               fontFamily: "roboto",
               fontWeight: 100,
-              letterSpacing: ".3rem",
+              letterSpacing: ".1rem",
               color: "inherit",
               textDecoration: "none",
             }}
           >
-             SDA News
+             The Latest News
           </Typography>
           <Box sx={{ flexGrow: 0 }}>
             {loggedIn ? (
@@ -150,7 +151,7 @@ function ResponsiveAppBar() {
                 to="/login"
                 style={{ textDecoration: "none", color: "black" }}
               >
-                <Button variant="contained">Log in</Button>
+                <Button variant="contained" sx={{fontSize: '0.8rem'}}>Log in</Button>
               </Link>
             )}
           </Box>
